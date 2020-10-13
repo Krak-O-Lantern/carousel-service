@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+server/test
+src/tests
+src/setupTests.jsx
+webpack.config.js
+README.md
+STYLE-GUIDE.md
+jest.config.js
+.vscode
+.circleci

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  carousel:
+    build: .
+    image: dantanna/service-dannyhannyford:3.0
+    depends_on:
+      - 'database'
+    ports:
+      - '80:3007'
+
+  database:
+    image: mongo:4.4.1
