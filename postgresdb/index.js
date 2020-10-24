@@ -1,21 +1,21 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: 'ericwise',
-  host: 'localhost',
+  user: 'postgres',
+  host: '3.130.237.41',
   database: 'sdc_pg',
-  password: '',
+  password: 'Hrsea12!',
   port: 5432,
 });
 
 const getListingById = (req, res) => {
-  const listing_id = 1 /*req.params.listing_id*/;
-
-  pool.query(`SELECT * from places WHERE listing_id = ${listing_id}`, (err, results) => {
+  const id = Number(req.params.listing_id);
+  const plusThirteen = id + 50;
+  pool.query(`SELECT * from places WHERE listing_id > ${id} and listing_id < ${plusThirteen} limit 12`, (err, results) => {
     if (err) {
       console.log(err);
     } else {
-      res.send(results);
+      res.send(results.rows);
     }
   });
 };
