@@ -25,23 +25,14 @@ const Carousel = () => {
     let mounted = true;
     setIsLoading(true);
     const fetchData = async () => {
-      const nicePics = Array(4).fill(0);
-      const dataRange = Array(8).fill(0);
-      const nicePicsArray = await nicePics.map(async (e, idx) => {
-        const { data } = await axios.get(`/api/listings/${idx + 1}`);
-        return data;
-      });
-      const fetchDataArray = await dataRange.map(async () => {
-        const randomNumber = Math.floor(Math.random() * 96 + 5);
-        const { data } = await axios.get(`/api/listings/${randomNumber}`);
-        return data;
-      });
-      const allData = nicePicsArray.concat(fetchDataArray);
-      Promise.all(allData)
+      const listing = window.location.href.match(/listings\/(.+)/);
+      const listingId = listing ? listing[1] : 1;
+      axios.get(`/api/listings/${listingId}`)
         .then((result) => {
-          setListingData(result);
-        });
-      setIsLoading(false);
+          console.log(result.data);
+          setListingData(result.data);
+        })
+        .then(() => setIsLoading(false));
     };
     if (mounted) {
       fetchData();
